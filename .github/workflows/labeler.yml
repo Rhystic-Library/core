@@ -1,0 +1,26 @@
+name: Labeler
+on:
+  pull_request:
+    types: [ opened, edited, synchronize, reopened ]
+jobs:
+  size-labeler:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: codelytv/pr-size-labeler@v1
+        with:
+          xs_label: 'size/XS'
+          xs_max_size: '50'
+          s_label: 'size/S'
+          s_max_size: '100'
+          m_label: 'size/M'
+          m_max_size: '250'
+          l_label: 'size/L'
+          l_max_size: '500'
+          xl_label: 'size/XL'
+          fail_if_xl: 'true'
+          message_if_xl: >
+            This PR is so big! Please split it.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

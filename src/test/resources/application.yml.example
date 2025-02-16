@@ -1,0 +1,7 @@
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: common-core
+  jackson:
+    time-zone: UTC

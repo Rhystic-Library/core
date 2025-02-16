@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%white(%d{yyyy-MM-dd HH:mm:ss.SSS,UTC}) %magenta([%thread]) %highlight(%-5level) %green(%class.%M:%line) - %msg - [%mdc]%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+  </appender>
+
+  <appender name="SYS_ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/test/system/sys_error.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/test/system/sys_error.%d{yyyy-MM-dd, UTC}.log</fileNamePattern>
+      <maxHistory>2</maxHistory>
+    </rollingPolicy>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <timeZone>UTC</timeZone>
+      <includeCallerData>true</includeCallerData>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+    <totalSizeCap>1GB</totalSizeCap>
+  </appender>
+
+  <appender name="RL_DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/test/application/application.debug.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/test/application/application.%d{yyyy-MM-dd, UTC}.debug.log</fileNamePattern>
+      <maxHistory>2</maxHistory>
+    </rollingPolicy>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <timeZone>UTC</timeZone>
+      <includeCallerData>true</includeCallerData>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>DEBUG</level>
+    </filter>
+    <totalSizeCap>1GB</totalSizeCap>
+  </appender>
+  <appender name="RL_INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/test/application/application.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/test/application/application.%d{yyyy-MM-dd, UTC}.log</fileNamePattern>
+      <maxHistory>2</maxHistory>
+    </rollingPolicy>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <timeZone>UTC</timeZone>
+      <includeCallerData>true</includeCallerData>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <totalSizeCap>1GB</totalSizeCap>
+  </appender>
+
+  <!-- Logger Configuration -->
+  <logger name="org.springframework" level="ERROR">
+    <appender-ref ref="SYS_ERROR_FILE"/>
+  </logger>
+  <logger name="sun.rmi" level="ERROR">
+    <appender-ref ref="SYS_ERROR_FILE"/>
+  </logger>
+  <logger name="com.rhysticlibrary.application" level="DEBUG" additivity="false">
+    <appender-ref ref="RL_DEBUG_FILE"/>
+    <appender-ref ref="RL_INFO_FILE"/>
+  </logger>
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="RL_INFO_FILE"/>
+  </root>
+</configuration>
