@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.2</version>
+    <version>3.4.3</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -48,16 +48,18 @@
     <maven.compiler.target>22</maven.compiler.target>
 
     <!--Source Versions-->
-    <jackson.version>2.18.2</jackson.version>
+    <jackson.version>2.18.3</jackson.version>
     <logstash.version>8.0</logstash.version>
     <lombok.version>1.18.36</lombok.version>
     <modelmapper.version>3.2.2</modelmapper.version>
-    <spring-boot.version>3.4.2</spring-boot.version>
+    <rl-domain-types.version>1.0.5</rl-domain-types.version>
+    <spring-boot.version>3.4.3</spring-boot.version>
 
     <!--Test Versions-->
-    <junit.version>5.12.0-M1</junit.version>
-    <mockito.version>5.15.2</mockito.version>
-    <spring-test.version>7.0.0-M1</spring-test.version>
+    <junit.version>5.12.0</junit.version>
+    <mockito.version>5.16.0</mockito.version>
+    <rl-test-core.version>1.0.0</rl-test-core.version>
+    <spring-test.version>7.0.0-M2</spring-test.version>
 
   </properties>
 
@@ -93,6 +95,13 @@
         <version>${modelmapper.version}</version>
       </dependency>
 
+      <!--RL Domain Types-->
+      <dependency>
+        <groupId>com.rhysticlibrary.core</groupId>
+        <artifactId>domain-types</artifactId>
+        <version>${rl-domain-types.version}</version>
+      </dependency>
+
       <!--Spring Web-->
       <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -114,6 +123,13 @@
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
         <version>${mockito.version}</version>
+      </dependency>
+
+      <!--RL Test Core-->
+      <dependency>
+        <groupId>com.rhysticlibrary.core</groupId>
+        <artifactId>test-core</artifactId>
+        <version>${rl-test-core.version}</version>
       </dependency>
 
       <!--Spring Boot Test-->
@@ -160,6 +176,12 @@
       <artifactId>modelmapper</artifactId>
     </dependency>
 
+    <!--RL Domain Types-->
+    <dependency>
+      <groupId>com.rhysticlibrary.core</groupId>
+      <artifactId>domain-types</artifactId>
+    </dependency>
+
     <!--Spring Web-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -179,6 +201,13 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!--RL Test Core-->
+    <dependency>
+      <groupId>com.rhysticlibrary.core</groupId>
+      <artifactId>test-core</artifactId>
       <scope>test</scope>
     </dependency>
 
