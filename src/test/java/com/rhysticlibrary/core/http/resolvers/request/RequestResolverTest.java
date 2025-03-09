@@ -26,7 +26,18 @@ final class RequestResolverTest extends BaseComponent {
   private MockHttpServletRequest requestSpy;
 
   @Test
-  public void testSetAttribute() {
+  void testGetAttribute() {
+    this.requestResolver.getAttribute(this.requestSpy, GeneralRequestAttribute.START_TIME);
+
+    verify(this.requestAttributeResolverMock, times(1))
+        .getAttribute(
+            any(HttpServletRequest.class),
+            eq(ATTRIBUTE)
+        );
+  }
+
+  @Test
+  void testSetAttribute() {
     this.requestResolver.setAttribute(this.requestSpy, GeneralRequestAttribute.START_TIME, super.timestampGenerator.generateFixedTimestamp());
 
     verify(this.requestAttributeResolverMock, times(1))

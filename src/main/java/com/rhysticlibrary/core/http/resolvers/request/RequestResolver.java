@@ -17,6 +17,21 @@ public final class RequestResolver {
   private final RequestAttributeResolver requestAttributeResolver;
 
   /**
+   * Facade for retrieving the attribute from the request.
+   *
+   * @param request   The request to retrieve the attribute from.
+   * @param attribute The attribute to retrieve.
+   * @param <T>       The type of the attribute.
+   * @return The attribute retrieved.
+   */
+  public <T> @NonNull T getAttribute(
+      @NonNull HttpServletRequest request,
+      @NonNull HttpEntity attribute
+  ) {
+    return this.requestAttributeResolver.getAttribute(request, attribute);
+  }
+
+  /**
    * Facade for setting attributes on the request.
    *
    * @param request The request for setting the attribute on.
