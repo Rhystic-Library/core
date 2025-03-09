@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import java.time.Instant;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 final class RequestResolverTest extends BaseComponent {
 
@@ -27,18 +29,26 @@ final class RequestResolverTest extends BaseComponent {
 
   @Test
   void testGetAttribute() {
-    this.requestResolver.getAttribute(this.requestSpy, GeneralRequestAttribute.START_TIME);
+    when(this.requestAttributeResolverMock.getAttribute(
+        any(HttpServletRequest.class),
+        eq(ATTRIBUTE)
+    ))
+        .thenReturn(super.timestampGenerator.generateFixedTimestamp());
+    Instant instant = this.requestResolver.getAttribute(this.requestSpy, ATTRIBUTE);
 
     verify(this.requestAttributeResolverMock, times(1))
         .getAttribute(
             any(HttpServletRequest.class),
             eq(ATTRIBUTE)
         );
+    
+    assertThat(instant)
+        .isEqualTo(super.timestampGenerator.generateFixedTimestamp());
   }
 
   @Test
   void testSetAttribute() {
-    this.requestResolver.setAttribute(this.requestSpy, GeneralRequestAttribute.START_TIME, super.timestampGenerator.generateFixedTimestamp());
+    this.requestResolver.setAttribute(this.requestSpy, ATTRIBUTE, super.timestampGenerator.generateFixedTimestamp());
 
     verify(this.requestAttributeResolverMock, times(1))
         .setAttribute(
